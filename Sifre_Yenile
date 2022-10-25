@@ -1,0 +1,63 @@
+//SQLDE SORUYA BAĞLI ŞİFREYİ GETİRME
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Data.SqlClient;
+
+namespace OkulOdev1
+{
+    public partial class Frm_Sifre_2 : Form
+    {
+        public Frm_Sifre_2()
+        {
+            InitializeComponent();
+        }
+        SqlConnection bgl = new SqlConnection("Data Source=DESKTOP;Initial Catalog=OkulOdev1;Integrated Security=True");
+        string id = "";
+        private void Frm_Sifre_2_Load(object sender, EventArgs e)
+        {
+            bgl.Open();
+            SqlCommand komut = new SqlCommand("Select * from Table_USER", bgl);          
+            SqlDataReader dr = komut.ExecuteReader();
+            while (dr.Read())
+            {
+                label2.Text = dr[4].ToString();
+            }
+            bgl.Close();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            bgl.Open();
+            SqlCommand komut = new SqlCommand("Select * from Table_USER where SifreSoru=@P1 and SifreCevap=@P2", bgl);
+            komut.Parameters.AddWithValue("@P1", label2.Text);
+            komut.Parameters.AddWithValue("@P2", textBox1.Text);
+            SqlDataReader dr=komut.ExecuteReader();
+            if (dr.Read())
+            {
+                MessageBox.Show("Doğru Cevap Şifreniz =" + dr[2]);
+            }
+            else
+            {
+                MessageBox.Show("Tekrar Deneyin");
+            }
+
+
+            bgl.Close();
+
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
+}
