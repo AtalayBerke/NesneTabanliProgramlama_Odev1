@@ -23,7 +23,7 @@ namespace OkulOdev1
         {
             InitializeComponent();
         }
-        SqlConnection bgl = new SqlConnection("Data Source=DESKTOP-LC55U5G\\SQLEXPRESS;Initial Catalog=OkulOdev1;Integrated Security=True");
+        SqlConnection bgl = new SqlConnection("Data Source=DESKTOP\\SQLEXPRESS;Initial Catalog=OkulOdev1;Integrated Security=True");
         
 
         private void Form2_Load(object sender, EventArgs e)
